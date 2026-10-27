@@ -10,15 +10,15 @@ import java.util.ArrayList;
 @RestController
 public class MyController{
 
-    @GetMapping("/clients")
+    @GetMapping("/test-clients")
     public Flux<Client> getClients() {
 
         return Flux.just(
-                        new Client(1,"Vasya", "Ivanovich", "Pypkin", "0661234577",
+                        new Client(1L,"Vasya", "Ivanovich", "Pypkin", "0661234577",
                                 "email1@example.com", 44, new ArrayList<>()),
-                        new Client(2, "Iva", "Sergeevich", "Pypkina", "0971235423",
+                        new Client(2L, "Iva", "Sergeevich", "Pypkina", "0971235423",
                                 "email2@example.com", 34, new ArrayList<>()),
-                        new Client(3, "Inna", "Aleksandrovich", "Pypkina", "0954351365",
+                        new Client(3L, "Inna", "Aleksandrovich", "Pypkina", "0954351365",
                                 "email1@example.com", 27, new ArrayList<>())
                 )
                 .skip(0)

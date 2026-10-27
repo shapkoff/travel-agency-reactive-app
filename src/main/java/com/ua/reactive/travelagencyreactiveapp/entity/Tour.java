@@ -22,5 +22,6 @@ public class Tour {
     private int durationDays;
     private double pricePerPerson;
     private int seatsAvailable;
+    private boolean burningTour;
     private List<Booking> bookings = new ArrayList<>();
 }

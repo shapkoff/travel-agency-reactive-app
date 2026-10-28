@@ -20,6 +20,7 @@ public class Router {
         return RouterFunctions
                 .route(RequestPredicates.GET("/hello").and(accept(MediaType.APPLICATION_JSON)), handler::home)
                 .andRoute(RequestPredicates.GET("/"), handler::home)
-                .andRoute(RequestPredicates.GET("/tours"), handler::getAllTours);
+                .andRoute(RequestPredicates.GET("/users"), handler::users)
+                .andRoute(RequestPredicates.GET("/admin"), handler::admin);
     }
 }

@@ -14,7 +14,7 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr
@@ -32,4 +32,16 @@ build/
 ### VS Code ###
 .vscode/
 
+### Node & Frontend ###
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+*.log
+
+### Secrets & Local configs ###
 application-local.properties
+**/application-local.properties
+.env
+.env.*
+*.local

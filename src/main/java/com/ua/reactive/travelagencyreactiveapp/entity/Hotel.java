@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +15,14 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table("hotels")
 public class Hotel {
-    private int id;
+    @Id
+    private Long id;
     private String name;
     private String city;
     private int stars;
+
+    @Transient
     private List<Tour> tours = new ArrayList<>();
 }

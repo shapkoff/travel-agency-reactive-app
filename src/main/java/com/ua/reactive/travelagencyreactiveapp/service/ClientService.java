@@ -25,6 +25,10 @@ public class ClientService {
         return clientRepository.findById(id);
     }
 
+    public Mono<Client> findByUserId(Long userId) {
+        return clientRepository.findByUserId(userId);
+    }
+
     public Mono<Client> addClient(Client client) {
         return clientRepository.save(client);
     }
@@ -33,6 +37,19 @@ public class ClientService {
         return clientRepository.findById(id)
                 .flatMap(c -> {
                     client.setId(c.getId());
+                    return clientRepository.save(client);
+                });
+    }
+
+    public Mono<Client> updateDiscount(Long id, Double discountPercent, Boolean isRegular) {
+        return clientRepository.findById(id)
+                .flatMap(client -> {
+                    if (discountPercent != null) {
+                        client.setDiscountPercent(discountPercent);
+                    }
+                    if (isRegular != null) {
+                        client.setIsRegular(isRegular);
+                    }
                     return clientRepository.save(client);
                 });
     }

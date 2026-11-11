@@ -22,14 +22,17 @@ public class Booking {
     private Long clientId;
     private Long tourId;
     private Long managerId;
+    private int peopleCount = 1;
+    private BookingStatus status = BookingStatus.NEW;
+    private Double discountPercent = 0.0;
+    private Double totalPrice = 0.0;
+
     @Transient
     private Client client;
     @Transient
     private Tour tour;
     @Transient
     private Manager manager;
-    private int peopleCount;
-    private BookingStatus status = BookingStatus.NEW;
     @Transient
     private List<Payment> payments = new ArrayList<>();
 }

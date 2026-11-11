@@ -1,19 +1,24 @@
 package com.ua.reactive.travelagencyreactiveapp.service;
 
+import com.ua.reactive.travelagencyreactiveapp.entity.BookingStatus;
 import com.ua.reactive.travelagencyreactiveapp.entity.Payment;
+import com.ua.reactive.travelagencyreactiveapp.repository.BookingRepository;
 import com.ua.reactive.travelagencyreactiveapp.repository.PaymentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDateTime;
+
 @Service
 public class PaymentService {
-    private final PaymentRepository paymentRepository;
 
-    @Autowired
-    public PaymentService(PaymentRepository paymentRepository) {
+    private final PaymentRepository paymentRepository;
+    private final BookingRepository bookingRepository;
+
+    public PaymentService(PaymentRepository paymentRepository, BookingRepository bookingRepository) {
         this.paymentRepository = paymentRepository;
+        this.bookingRepository = bookingRepository;
     }
 
     public Flux<Payment> getPayments() {
@@ -25,7 +30,19 @@ public class PaymentService {
     }
 
     public Mono<Payment> addPayment(Payment payment) {
-        return paymentRepository.save(payment);
+        if (payment.getPaidAt() == null) {
+            payment.setPaidAt(LocalDateTime.now());
+        }
+
+        return paymentRepository.save(payment)
+                .flatMap(savedPayment ->
+                        bookingRepository.findById(payment.getBookingId())
+                                .flatMap(booking -> {
+                                    booking.setStatus(BookingStatus.PAID);
+                                    return bookingRepository.save(booking);
+                                })
+                                .thenReturn(savedPayment)
+                );
     }
 
     public Mono<Payment> updatePayment(Long id, Payment payment) {

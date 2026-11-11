@@ -115,7 +115,7 @@ CREATE DATABASE reactive_app;
 ./mvnw spring-boot:run
 
 # Windows
-mvnw.cmd spring-boot:run
+./mvnw spring-boot:run
 ```
 
 Бекенд стартує на `http://localhost:8080`.
@@ -123,8 +123,6 @@ mvnw.cmd spring-boot:run
 ### 4. Запуск фронтенду
 
 ```bash
-cd frontend
-npm install
 npm run dev
 ```
 
